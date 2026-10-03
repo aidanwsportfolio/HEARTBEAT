@@ -39,11 +39,11 @@ Potential future field:
 - name is required and cannot be empty.
 - url is required and must have a valid URL structure.
 - check_type is required and must match a supported HEARTBEAT check type.
-- name, url, and check_type may be modified by an authorized administrator.
+- name, url, and check_type may be modified by the project operator, subject to validation.
 
 ## Decisions
 
-- HEARTBEAT will generate service identifiers rather than allowing administrators to manually assign them.
+- HEARTBEAT will generate service identifiers rather than allowing the project operator to manually assign them.
 - Service identity will remain separate from its display name so a service can be renamed without changing its identity.
 - check_type describes how HEARTBEAT monitors a service.
 - Monitoring results such as response time, HTTP status, and availability do not belong directly to the Service model. They will belong to a future health-check model.
@@ -52,3 +52,8 @@ Potential future field:
 
 ## Acceptance Criteria
 
+- docs/DATA_MODEL.md documents id, name, url, and check_type as the fields in the v0.1 Service model.
+- docs/DATA_MODEL.md states the validation rules for each Service field.
+- docs/DATA_MODEL.md states that HEARTBEAT generates and controls id, while the project operator selects and may update name, url, and check_type subject to validation.
+- docs/DATA_MODEL.md explains that Service stores identity and monitoring configuration, while a future HealthCheck records observations from individual checks.
+- docs/DATA_MODEL.md explains the purpose of check_type. The first implementation ticket will define its supported values.
