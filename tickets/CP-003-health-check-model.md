@@ -1,3 +1,9 @@
+# CP-003: HealthCheck Model
+
+## Goal
+
+Define a HealthCheck record that stores the result of one check of a Service.
+
 ## Scope
 
 - Record the stable ID of the Service that was checked.

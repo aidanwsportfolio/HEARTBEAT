@@ -1,6 +1,6 @@
 import unittest
 from dataclasses import FrozenInstanceError
-from datetime import datetime, timezone
+from datetime import datetime
 
 from src.health_check import HealthCheck
 from src.service import Service
