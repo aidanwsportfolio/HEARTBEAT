@@ -17,10 +17,10 @@ class TestService(unittest.TestCase):
                     Service(name, "https://moodle.lsu.edu", "http")
 
     def test_invalid_url_is_rejected(self):
-            for url in ("moodle.lsu.edu", "https://", "   ", "https://bad host"):
-                with self.subTest(url=url):
-                    with self.assertRaises(ValueError):
-                        Service("Moodle", url, "http")
+        for url in ("moodle.lsu.edu", "https://", "   ", "https://bad host", "https://example.org:abc"):
+            with self.subTest(url=url):
+                with self.assertRaises(ValueError):
+                    Service("Moodle", url, "http")
 
     def test_http_url_is_accepted(self):
         service = Service("Moodle", "http://moodle.lsu.edu", "http")

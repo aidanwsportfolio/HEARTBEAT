@@ -38,6 +38,10 @@ class Service:
         parts = urlsplit(clean_url)
         if parts.scheme not in ("http", "https") or not parts.hostname or any(character.isspace() for character in parts.hostname):
             raise ValueError("URL must start with 'http://' or 'https://' and include a hostname.")
+        try:
+            parts.port
+        except ValueError as exc:
+            raise ValueError("URL port must be a number between 0 and 65535.") from exc
         self._url = clean_url
 
     @check_type.setter
