@@ -23,3 +23,7 @@ Let an operator check services listed in a JSON file with one terminal command.
 - Automated tests cover valid entries, skipped entries, and file errors.
 - Invalid entries produce exit code 1 after valid services have been checked.
 - An unreadable or malformed file produces exit code 2.
+- A failed check is labeled NEEDS REVIEW without claiming the service is unavailable to users.
+- A check without an HTTP response displays a short failure reason.
+- A 403 result explains that user availability is unknown.
+- Any failed check produces exit code 1, even when the configuration is valid.
