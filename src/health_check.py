@@ -9,6 +9,7 @@ class HealthCheck:
     success: bool
     status_code: int | None
     checked_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    failure_reason: str | None = None
 
     def __post_init__(self):
         try:
@@ -37,3 +38,11 @@ class HealthCheck:
 
             if self.success != (200 <= self.status_code <= 299):
                 raise ValueError("success must match whether the HTTP status code is 2xx.")
+
+        if self.failure_reason is not None:
+            if not isinstance(self.failure_reason, str) or not self.failure_reason.strip():
+                raise ValueError("failure_reason must be a non-empty string.")
+            if self.success or self.status_code is not None:
+                raise ValueError(
+                    "failure_reason is only for failed checks without an HTTP response."
+                )

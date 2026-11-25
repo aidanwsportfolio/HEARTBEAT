@@ -55,6 +55,9 @@ class TestHealthCheck(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "checked_at must be a datetime"):
             HealthCheck(self.service.id, True, 200, checked_at="yesterday")
 
+    def test_success_cannot_have_failure_reason(self):
+        with self.assertRaises(ValueError):
+            HealthCheck(self.service.id, True, 200, failure_reason="timeout")
 
 if __name__ == "__main__":
     unittest.main()

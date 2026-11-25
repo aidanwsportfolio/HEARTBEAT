@@ -3,7 +3,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Thread
 from unittest.mock import patch
 from urllib.error import HTTPError, URLError
-
+from socket import gaierror
 from src.http_checker import check_http
 from src.service import Service
 
@@ -34,6 +34,15 @@ class TestHttpChecker(unittest.TestCase):
         self.assertFalse(check.success)
         self.assertEqual(check.status_code, 404)
 
+    @patch("src.http_checker.urlopen")
+    def test_dns_failure_has_reason(self, mock_urlopen):
+        mock_urlopen.side_effect = URLError(gaierror(-2, "Name not known"))
+
+        check = check_http(self.service)
+
+        self.assertFalse(check.success)
+        self.assertIsNone(check.status_code)
+        self.assertEqual(check.failure_reason, "DNS error")
     @patch("src.http_checker.urlopen")
     def test_connection_failure_has_no_status_code(self, mock_urlopen):
         mock_urlopen.side_effect = URLError("Connection refused")
