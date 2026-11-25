@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Moodle",
+    "url": "https://moodle.lsu.edu",
+    "check_type": "http"
+  },
+  {
+    "name": "Library",
+    "url": "https://www.lib.lsu.edu",
+    "check_type": "http"
+  }
+]
